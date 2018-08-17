@@ -33,7 +33,7 @@ socket.init('wsurl', options)
 - Accepts `integer`
 - Default: `30000`
 
-####`reconnectDecay`
+#### `reconnectDecay`
 - 重新连接延迟的增加率。允许重新连接尝试在问题仍然存在时退出。
 - Accepts `integer` or `float`
 - Default: `1.5`
