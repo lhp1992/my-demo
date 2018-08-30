@@ -29,4 +29,4 @@ Text.prototype = extend({}, feature)
 Text.prototype.newFeature = newFeature
 Text.prototype.default = defaults
 
-export {Text, newFeature, editor, editorClose, defaultsa}
+export {Text, newFeature, editor, editorClose, defaults}
