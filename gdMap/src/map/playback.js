@@ -22,7 +22,7 @@ const Playback = function (obj = {}) {
 
 Playback.prototype.setData = function (data = []) {
     if (data.length < 1) return false
-    if (this.marker || this.polyline || this.passedPolyline) {
+    if (this.marker || this.polyline) {
         this.remove()
     }
     this.data = data
@@ -46,16 +46,13 @@ Playback.prototype.setData = function (data = []) {
     this.polyline = new AMap.Polyline(extend({}, this.polylineDefault, { // eslint-disable-line
         map: this.map
     }))
-    this.passedPolyline = new AMap.Polyline(extend({}, this.polylineDefault, { // eslint-disable-line
-        map: this.map
-    }))
-    const _this = this
-    this.marker.on('moving', function (e) {
-        _this.passedPolyline.setPath([_this.startPosition, e.passedPath[1]])
+    this.marker.on('moving', e => {
+        this.path[this.path.length - 1] = e.passedPath[1]
+        this.polyline.setPath(this.path)
     })
-    this.marker.on('moveend', function (e) {
-        _this.index++
-        _this.start(_this.index)
+    this.marker.on('moveend', e => {
+        this.index++
+        this.start(this.index)
     })
     this.isPaly = true
     this.start()
@@ -73,7 +70,6 @@ Playback.prototype.getPath = function (index) {
 Playback.prototype.start = function (index = 0) {
     const start = this.data[index]
     const end = this.data[index + 1]
-    const _this = this
     this.onStart && this.onStart({
         index: index,
         speed: start.speed || 0
@@ -84,15 +80,17 @@ Playback.prototype.start = function (index = 0) {
     }
     this.index = index
     if (!start.speed) {
-        this.timeout = setTimeout(function () {
-            clearTimeout(_this.timeout)
-            _this.index++
-            _this.start(_this.index)
+        this.timeout = setTimeout(() => {
+            clearTimeout(this.timeout)
+            this.index++
+            this.start(this.index)
         }, (end.timestamp - start.timestamp) / this.rate)
     } else {
         const path = this.getPath(index)
         this.startPosition = start.position
         this.polyline.setPath(path)
+        path.push(start.position)
+        this.path = path
         this.marker.setPosition(start.position)
         this.marker.moveTo(end.position, start.speed * this.rate)
     }
@@ -124,7 +122,6 @@ Playback.prototype.reload = function (index) {
     this.index = index
     this.marker.stopMove()
     clearTimeout(this.timeout)
-    this.passedPolyline.setPath([])
     const path = this.getPath(index)
     this.polyline.setPath(path)
     this.marker.setPosition(path[path.length - 1])
@@ -133,13 +130,12 @@ Playback.prototype.reload = function (index) {
 }
 
 Playback.prototype.remove = function () {
+    clearTimeout(this.timeout)
     this.marker.stopMove()
     this.marker.setMap(null)
     this.marker = null
     this.polyline.setMap(null)
     this.polyline = null
-    this.passedPolyline.setMap(null)
-    this.passedPolyline = null
 }
 
 export default Playback

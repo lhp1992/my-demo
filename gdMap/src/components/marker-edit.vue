@@ -69,7 +69,7 @@ export default {
     onsubmit() {
       this.list.forEach((item, index) => {
         if (item.id == this.form.id) {
-          this.$set(this.list, index, JSON.parse(JSON.stringify(this.form)))
+          this.$set(this.list, index, { ...this.form })
         }
       })
       var feature = this.features.getById(this.form.id)
@@ -82,7 +82,7 @@ export default {
       this.$el.querySelector('#'+ this.idKey + '-list').scrollTop = anchor.offsetTop
     },
     edit(item) {
-      this.form = JSON.parse(JSON.stringify(item))
+      this.form = { ...item }
       this.isopen = true
       this.features.hideAll()
       this.feature = this.features.add({
@@ -98,8 +98,15 @@ export default {
       }.bind(this))
     },
     ondel(item, index) {
-      this.features.delById(item.id)
-      this.list.splice(index, 1)
+      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.features.delById(item.id)
+        this.list.splice(index, 1)
+      }).catch(() => {
+      })
     }
   }
 }

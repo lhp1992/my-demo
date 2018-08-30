@@ -16,7 +16,7 @@ function randomPoints (n, cb) {
 
 export default {
   getMarker (params, cb) {
-    setTimeout(() => cb(randomPoints(20, (point, i) => {
+    setTimeout(() => cb(randomPoints(10, (point, i) => {
       return {
         center: point,
         id: i
@@ -43,9 +43,12 @@ export default {
           if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
       return fmt;
     }
+    let path = []
     setTimeout(() => cb(randomPoints(20, (point, i) => {
+      let b = (Math.random() > .5 || i === 1) ? point : path
+      path = point
       return {
-        position: point,
+        position: b,
         time: format(i * 2)
       }
     })), 1)
@@ -56,6 +59,16 @@ export default {
       path.push({
         id: i + 1,
         path: randomPoints(5, (point) => point)
+      })
+    }
+    setTimeout(() => cb(path), 1)
+  },
+  getRectangle (params, cb) {
+    const path = []
+    for (var i = 0; i < 4; i++) {
+      path.push({
+        id: i + 1,
+        bounds: randomPoints(2, (point) => point)
       })
     }
     setTimeout(() => cb(path), 1)
@@ -78,4 +91,33 @@ export default {
       }
     })), 1)
   },
+  getText (params, cb) {
+    setTimeout(() => cb(randomPoints(20, (point, i) => {
+      return {
+        text: '第'+ i +'个文字标记',
+        position: point,
+        id: i
+      }
+    })), 1)
+  },
+  getDrivings (params, cb) {
+    const data = [
+      {
+        route: '黄兴北路>黄兴中路>李公庙巷>吉祥街>吉祥巷>藩城堤街>五一大道>蔡锷中路',
+        distance: '2.97公里',
+        time: '10分钟',
+        start: [112.975778, 28.211881],
+        end: [112.980906, 28.192161],
+        waypoints: [[112.974012, 28.208678]]
+      }, {
+        route: '黄兴北路>黄兴中路>李公庙巷>吉祥街>吉祥巷>藩城堤街>五一大道>蔡锷中路',
+        distance: '2.97公里',
+        time: '10分钟',
+        start: [112.975778, 28.201881],
+        end: [112.980906, 28.192161],
+        waypoints: [[116.464996,39.971433]]
+      }
+    ]
+    setTimeout(() => cb(data), 1)
+  }
 }

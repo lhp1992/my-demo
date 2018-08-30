@@ -33,6 +33,9 @@ export default {
           title: '点标记',
           src: '/marker'
         }, {
+          title: '点标记自定义',
+          src: '/marker-custom'
+        }, {
           title: '点标记移动',
           src: '/marker-run'
         }, {
@@ -41,6 +44,12 @@ export default {
         }, {
           title: '点聚合移动',
           src: '/markerclusterer-run'
+        }, {
+          title: '文字标记',
+          src: '/text'
+        }, {
+          title: '矩形',
+          src: '/rectangle'
         }, {
           title: '折线',
           src: '/polyline'
@@ -74,6 +83,15 @@ export default {
         }, {
           title: '圆形编辑',
           src: '/circle-edit'
+        }, {
+          title: '路线编辑',
+          src: '/driving-edit'
+        }, {
+          title: '鼠标工具插件',
+          src: '/mouseTool'
+        }, {
+          title: '多种覆盖物',
+          src: '/feature-move'
         }
       ]
     }
@@ -114,6 +132,9 @@ export default {
     background: #eef8ff;
     border-right: 4px solid #15A3FA;
   }
+  .el-main{
+    padding: 0;
+  }
 </style>
 
 <style>
@@ -132,7 +153,28 @@ html, body{
   width: 100%;
   height: 100%;
 }
-.el-main{
-  padding: 0;
+
+.button-group {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 12px;
+  padding: 10px;
+}
+.button-group .button {
+  height: 28px;
+  line-height: 28px;
+  background-color: #0D9BF2;
+  color: #FFF;
+  border: 0;
+  outline: none;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-radius: 3px;
+  margin-bottom: 4px;
+  cursor: pointer;
+}
+.slider-container{
+  display: inline-block;
 }
 </style>

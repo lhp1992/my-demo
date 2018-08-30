@@ -42,3 +42,18 @@ export default {
   }
 }
 </script>
+
+<style>
+  .tip {
+    background-color: #fff;
+    padding-left: 10px;
+    padding-right: 10px;
+    position: absolute;
+    font-size: 12px;
+    left: 10px;
+    top: 20px;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    line-height: 30px;
+  }
+</style>

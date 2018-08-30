@@ -22,10 +22,7 @@ feature.remove = function () {
 feature.load = function (data) {
     this.onLoad && this.onLoad(this, data)
     this.remove()
-    const _this = this
-    data.forEach(function (item) {
-        _this.add(item)
-    })
+    data.forEach(item => this.add(item))
 }
 
 feature.showAll = function () {
@@ -45,6 +42,10 @@ feature.getById = function (id) {
 }
 
 feature.del = function (item) {
+    if (this.editorObj === item) {
+        this.editorClose()
+        item = this.editorFeature
+    }
     const idx = this.data.indexOf(item)
     if (idx !== -1) {
         const id = item.params[this.idKey]
@@ -81,6 +82,11 @@ feature.add = function (params) {
     item.params = params
     item.del = function () {
         _this.del.bind(_this)(item)
+    }
+    if (this.isEditor) {
+        item.editor = function () {
+            _this.editor.bind(_this)(item)
+        }
     }
 
     if (this.onClick) {

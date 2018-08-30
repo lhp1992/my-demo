@@ -7,45 +7,41 @@ export default {
   data () {
     return {
       features: null,
-      data: []
-    }
-  },
-  props: ['onclick', 'options', 'map', 'onload'],
-  methods: {
-    load (data) {
-      this.data = data
-      this.features = new gdMap.Markers({
-        map: this.map,
-        // default: {
-        //   draggable: true,
-        //   cursor: 'move'
-        // },
+      data: [],
+      default: {
         positionKey: 'center',
         setContextMenu: [
           {
             title: "选项一",
             callback: function(e) {
-              console.log(e)
+              e.editorClose()
             }
           },
           {
             title: "选项二",
             callback: function(e) {
-              console.log(e)
+              e.editor()
             }
           }
         ],
-        // onAdd: (item) => {
-        //   // console.log(item.id)
-        //   // item.content = 'id: '+ item.id
-        // },
-        onClick: this.onclick || function(e){
-          console.log(e)
-        },
-        // onDragend: function(e){
-        //   console.log(e)
-        // }
-      })
+        isEditor: true
+      }
+    }
+  },
+  props: ['onclick', 'options', 'map', 'onload', 'params'],
+  watch: {
+    options() {
+      this.features.remove()
+      this.$ajax.map.getMarker({}, this.load)
+    }
+  },
+  methods: {
+    load (data) {
+      this.data = data
+      const object = {}
+      this.onclick && (object.onClick = this.onclick)
+      this.map && (object.map = this.map)
+      this.features = new gdMap.Markers(Object.assign({}, this.default, this.options || {}, object))
       this.features.load(data)
       this.onload && this.onload(this)
     }

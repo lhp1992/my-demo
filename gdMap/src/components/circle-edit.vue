@@ -6,7 +6,7 @@
       <div :class="activeId == item.id ? 'active list-item' : 'list-item'" v-for="(item, index) in list" :id="idKey + item.id">
         <div>坐标：{{item.center}}</div>
         <div>ID：{{item.id}}</div>
-        <div>c：{{item.center}}</div>
+        <div>半径：{{item.radius}}</div>
         <div>
           <el-button type="text" @click="edit(item)">编辑</el-button>
           <el-button type="text" @click="ondel(item, index)">删除</el-button>
@@ -29,7 +29,6 @@
         <el-col :span="11">
           <el-input v-model="form.center[1]" readonly></el-input>
         </el-col>
-        <p style="color: red">* 地图上拖动目标来改变位置</p>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="onsubmit">保存</el-button>
@@ -73,7 +72,7 @@ export default {
     onsubmit() {
       this.list.forEach((item, index) => {
         if (item.id == this.form.id) {
-          this.$set(this.list, index, JSON.parse(JSON.stringify(this.form)))
+          this.$set(this.list, index, { ...this.form })
         }
       })
       var feature = this.features.getById(this.form.id)
@@ -87,7 +86,7 @@ export default {
       this.$el.querySelector('#'+ this.idKey + '-list').scrollTop = anchor.offsetTop
     },
     edit(item) {
-      this.form = JSON.parse(JSON.stringify(item))
+      this.form = { ...item }
       this.isopen = true
       this.features.hideAll()
       this.feature = this.features.add({
@@ -100,8 +99,15 @@ export default {
       this.editor.open()
     },
     ondel(item, index) {
-      this.features.delById(item.id)
-      this.list.splice(index, 1)
+      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.features.delById(item.id)
+        this.list.splice(index, 1)
+      }).catch(() => {
+      })
     }
   },
   destroyed () {

@@ -47,6 +47,7 @@ export default {
     })
   },
   destroyed () {
+    this.tableHtml.hide()
     gdMap.setInfoWindow({
         isCustom: false,
         autoMove: true

@@ -18,13 +18,13 @@ export default {
       const object = {}
       this.onclick && (object.onClick = this.onclick)
       this.map && (object.map = this.map)
-      this.features = new gdMap.Circles(Object.assign({}, this.default, this.options || {}, object))
+      this.features = new gdMap.Text(Object.assign({}, this.default, this.options || {}, object))
       this.features.load(data)
       this.onload && this.onload(this)
     }
   },
   mounted () {
-    this.$ajax.map.getCircle({}, this.load)
+    this.$ajax.map.getText({}, this.load)
   },
   destroyed () {
     this.features.remove()

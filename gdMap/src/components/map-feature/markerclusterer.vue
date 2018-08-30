@@ -7,19 +7,8 @@ export default {
   data () {
     return {
       features: null,
-      data: []
-    }
-  },
-  props: ['onclick', 'options', 'map', 'onload'],
-  methods: {
-    load (data) {
-      this.data = data
-      this.features = new gdMap.MarkerClusterer({
-        map: this.map,
-        // default: {
-        //   draggable: true,
-        //   cursor: 'move'
-        // },
+      data: [],
+      default: {
         positionKey: 'center',
         setContextMenu: [
           {
@@ -34,27 +23,30 @@ export default {
               console.log(e)
             }
           }
-        ],
-        // onAdd: (item) => {
-        //   // console.log(item.id)
-        //   // item.content = 'id: '+ item.id
-        // },
-        onClick: this.onclick || function(e){
-          console.log(e)
-        },
-        // onDragend: function(e){
-        //   console.log(e)
-        // }
-      })
+        ]
+      }
+    }
+  },
+  props: ['onclick', 'options', 'map', 'onload', 'params'],
+  watch: {
+    options() {
+      this.features.remove()
+      this.$ajax.map.getMarker({}, this.load)
+    }
+  },
+  methods: {
+    load (data) {
+      this.data = data
+      const object = {}
+      this.onclick && (object.onClick = this.onclick)
+      this.map && (object.map = this.map)
+      this.features = new gdMap.MarkerClusterer(Object.assign({}, this.default, this.options || {}, object))
       this.features.load(data)
       this.onload && this.onload(this)
     }
   },
   created () {
-    this.map.plugin(["AMap.MarkerClusterer"])
-  },
-  mounted () {
-    this.$ajax.map.getMarker({}, this.load)
+    this.map.plugin(["AMap.MarkerClusterer"], () => this.$ajax.map.getMarker({}, this.load))
   },
   destroyed () {
     this.features.remove()

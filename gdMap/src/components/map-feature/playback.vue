@@ -10,16 +10,18 @@ export default {
       data: []
     }
   },
-  props: ['onclick', 'options', 'map', 'onload', 'onstart'],
+  props: ['onclick', 'options', 'map', 'onload', 'onstart', 'params'],
   methods: {
     load (data) {
       this.data = data
       this.feature = new gdMap.Playback({
         map: this.map,
         polylineDefault: {
-          strokeStyle: 'dashed',
-          strokeColor: '#f00',
-          strokeWeight: 1
+          // strokeStyle: 'dashed',
+          // strokeWeight: 1,
+          strokeWeight: 7,
+          showDir: true,
+          strokeColor: '#f00'
         },
         onStart: this.onstart || null
       })

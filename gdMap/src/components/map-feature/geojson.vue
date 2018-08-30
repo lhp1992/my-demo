@@ -11,7 +11,7 @@ export default {
       data: []
     }
   },
-  props: ['onclick', 'options', 'map', 'onload'],
+  props: ['onclick', 'options', 'map', 'onload', 'params'],
   methods: {
     load (data) {
       this.data = data

@@ -3,12 +3,12 @@
     <my-feature :onclick="onclick" :onload="onload" :map="map"></my-feature>
 
     <div class="toggle-list" :id="idKey + '-list'" v-if="!isopen">
-      <div :class="activeId == item.id ? 'active list-item' : 'list-item'" v-for="item in list" :id="idKey + item.id">
+      <div :class="activeId == item.id ? 'active list-item' : 'list-item'" v-for="(item, index) in list" :id="idKey + item.id">
         <div>坐标：{{item.path}}</div>
         <div>ID：{{item.id}}</div>
         <div>
           <el-button type="text" @click="edit(item)">编辑</el-button>
-          <el-button type="text">删除</el-button>
+          <el-button type="text" @click="ondel(item, index)">删除</el-button>
         </div>
       </div>
     </div>
@@ -64,7 +64,7 @@ export default {
         if (item.id == this.form.id) {
           var path = this.feature.getPath()
           this.form.path = path
-          this.$set(this.list, index, JSON.parse(JSON.stringify(this.form)))
+          this.$set(this.list, index, { ...this.form })
         }
       })
       var feature = this.features.getById(this.form.id)
@@ -80,7 +80,7 @@ export default {
       this.$el.querySelector('#'+ this.idKey + '-list').scrollTop = anchor.offsetTop
     },
     edit(item) {
-      this.form = JSON.parse(JSON.stringify(item))
+      this.form = { ...item }
       this.isopen = true
       this.features.hideAll()
       this.feature = this.features.add({
@@ -92,6 +92,17 @@ export default {
       })
       this.editor = new AMap.PolyEditor(this.map, this.feature)
       this.editor.open()
+    },
+    ondel(item, index) {
+      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.features.delById(item.id)
+        this.list.splice(index, 1)
+      }).catch(() => {
+      })
     }
   },
   destroyed () {

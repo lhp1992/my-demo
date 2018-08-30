@@ -10,15 +10,12 @@ export default {
       data: []
     }
   },
-  props: ['onclick', 'options', 'map', 'onload'],
+  props: ['onclick', 'options', 'map', 'onload', 'params'],
   methods: {
     load (data) {
       this.data = data
       this.features = new gdMap.OverlayGroup({
-        default: {
-          draggable: true,
-          cursor: 'move'
-        },
+        isEditor: true,
         setContextMenu: [
           {
             title: "删除",
@@ -27,18 +24,27 @@ export default {
             }
           },
           {
-            title: "选项二",
+            title: "编辑",
             callback: function(e) {
-              console.log(overlayGroup)
+              e.editor()
             }
           }
         ],
-        onClick: function(e){
-          console.log(e)
-        },
-        onDragend: function(e){
-          console.log(e)
-        }
+        // defaults: {
+        //   'all': {
+        //     draggable: true,
+        //     cursor: 'move'
+        //   },
+        //   'polygon': {
+        //     fillColor:'blue',
+        //   }
+        // }
+        // onClick: function(e){
+        //   console.log(e)
+        // },
+        // onDragend: function(e){
+        //   console.log(e)
+        // }
       })
       this.features.load(data)
       this.onload && this.onload(this)
@@ -52,8 +58,9 @@ export default {
         position: [112.982279, 28.19409]
       }, {
         id: '2',
-        type: 'marker',
-        position: [112.984279, 28.19609]
+        type: 'text',
+        position: [112.984279, 28.19609],
+        text: '文字标记'
       }, {
         id: '3',
         type: 'polyline',
@@ -67,6 +74,10 @@ export default {
         type: 'circle',
         center: [112.984279, 28.19409],
         radius: 100
+      }, {
+        id: '6',
+        type: 'rectangle',
+        bounds: [[112.982279, 28.19609], [112.984279, 28.19809]]
       }
     ])
   },

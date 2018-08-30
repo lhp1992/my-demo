@@ -10,8 +10,12 @@ export default new Router({
       name: 'marker',
       component: () => import('@/components/map-feature/marker')
     }, {
+      path: '/marker-custom',
+      name: 'marker-custom',
+      component: () => import('@/components/marker-custom')
+    }, {
       path: '/marker-run',
-      name: 'markerr-un',
+      name: 'marker-run',
       component: () => import('@/components/marker-run')
     }, {
       path: '/markerclusterer',
@@ -19,8 +23,16 @@ export default new Router({
       component: () => import('@/components/map-feature/markerclusterer')
     }, {
       path: '/markerclusterer-run',
-      name: 'markerclusterer-un',
+      name: 'markerclusterer-run',
       component: () => import('@/components/markerclusterer-run')
+    }, {
+      path: '/text',
+      name: 'text',
+      component: () => import('@/components/map-feature/text')
+    }, {
+      path: '/rectangle',
+      name: 'rectangle',
+      component: () => import('@/components/map-feature/rectangle')
     }, {
       path: '/polyline',
       name: 'polyline',
@@ -65,6 +77,18 @@ export default new Router({
       path: '/circle-edit',
       name: 'circle-edit',
       component: () => import('@/components/circle-edit')
+    }, {
+      path: '/driving-edit',
+      name: 'driving-edit',
+      component: () => import('@/components/driving-edit')
+    }, {
+      path: '/mouseTool',
+      name: 'mouseTool',
+      component: () => import('@/components/map-feature/mouseTool')
+    }, {
+      path: '/feature-move',
+      name: 'feature-move',
+      component: () => import('@/components/feature-move')
     }
   ]
 })
