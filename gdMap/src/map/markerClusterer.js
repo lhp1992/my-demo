@@ -3,16 +3,24 @@ import { extend } from './public.js'
 import { Marker } from './marker.js'
 
 const markerClusterer = function (obj = {}) {
+
     obj.default && (obj.default = extend(this.default, obj.default))
     if (obj.markerDefault) {
         delete obj.default
         obj.default = obj.markerDefault
     }
-    const object = new AMap.MarkerClusterer((obj.map || map), [], this.default) // eslint-disable-line
+
+    this.map = obj.map || map
+
+    let object
+    
+    this.map.plugin(["AMap.MarkerClusterer"],() => {
+        object = new AMap.MarkerClusterer((obj.map || map), [], this.default) // eslint-disable-line
+    })
 
     object.add = function (params) {
-        this.markers.add(params)
-        this.addMarker(this.markers.data[this.markers.data.length - 1])
+        var item = this.markers.add(params)
+        this.addMarker(item)
     }
 
     object.remove = function () {

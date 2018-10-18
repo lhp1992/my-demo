@@ -14,14 +14,14 @@ const newFeature = function (params = {}) {
 const editor = function (item) {
     this.map.plugin(["AMap.CircleEditor"],() => {
         if (this.editorObj === item) return false
-        this.editorClose()
-        this.editorFeature = item
-        this.editorObj = this.add(item.params)
-        this.editorObj.setDraggable(true)
-        this.polylineEditor = new AMap.CircleEditor(this.map, this.editorObj)
-        this.polylineEditor.open()
-        this.editorFeature.hide()
-        this.map.on('rightclick', this.editorClose, this)
+        if (!this.notEditorClose) {
+            this.editorClose()
+            this.map.on('rightclick', this.editorClose, this)
+        }
+        this.editorObj = item
+        this.editorFeature = new AMap.CircleEditor(this.map, this.editorObj)
+        item.editorFeature = this.editorFeature
+        this.editorFeature.open()
     })
 }
 
@@ -29,15 +29,11 @@ const editorClose = function () {
     if (this.editorObj) {
         const radius = this.editorObj.getRadius()
         const center = this.editorObj.getCenter()
-        this.editorFeature.params[this.centerKey] = [center.lng, center.lat]
-        this.editorFeature.params[this.radiusKey] = radius
-        this.editorFeature.setCenter(center)
-        this.editorFeature.setRadius(radius)
-        this.editorFeature.show()
-        this.polylineEditor.close()
-        this.editorObj.setMap(null)
-        const idx = this.data.indexOf(this.editorObj)
-        this.data.splice(idx, 1)
+        this.editorObj.params[this.centerKey] = [center.lng, center.lat]
+        this.editorObj.params[this.radiusKey] = radius
+        this.editorFeature.close()
+        this.editorObj.editorFeature = null
+        delete this.editorObj.editorFeature
         this.editorObj = null
         this.map.off('rightclick', this.editorClose, this)
     }
@@ -47,6 +43,11 @@ const Circle = function (obj = {}) {
     this.centerKey = 'center'
     this.radiusKey = 'radius'
     this.init(obj)
+
+    if (this.isEditor) {
+        this.editor = editor
+        this.editorClose = editorClose
+    }
 }
 
 const defaults = {}

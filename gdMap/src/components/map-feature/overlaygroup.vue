@@ -30,6 +30,7 @@ export default {
             }
           }
         ],
+        map: this.map
         // defaults: {
         //   'all': {
         //     draggable: true,
@@ -42,9 +43,6 @@ export default {
         // onClick: function(e){
         //   console.log(e)
         // },
-        // onDragend: function(e){
-        //   console.log(e)
-        // }
       })
       this.features.load(data)
       this.onload && this.onload(this)

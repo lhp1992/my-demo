@@ -22,9 +22,13 @@ export default {
   },
   mounted () {
     this.load(json)
+    this.map.setCenter([107.8967,30.3223])
+    this.map.setZoom(8)
   },
   destroyed () {
     this.features.remove()
+    this.map.setCenter([112.982279, 28.19409])
+    this.map.setZoom(15)
   }
 }
 </script>

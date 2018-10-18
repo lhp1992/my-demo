@@ -23,7 +23,7 @@ export default {
     gdMap.setInfoWindow({
         isCustom: true,
         autoMove: false
-    })
+    }, this.map.infoWindow)
     this.tableHtml = new gdMap.InfoWindowCustom({
       width: 300,
       title: '警情详情',
@@ -37,10 +37,11 @@ export default {
               console.log(222)
           }
       },
-      // butsModal: function(buts){
+      map: this.map,
+      // butsModel: function(buts){
       //   return buts
       // },
-      // modal: function(data){
+      // model: function(data){
       //   console.log(data)
       //   return JSON.stringify(data)
       // }
@@ -51,7 +52,7 @@ export default {
     gdMap.setInfoWindow({
         isCustom: false,
         autoMove: true
-    })
+    }, this.map.infoWindow)
   }
 }
 </script>

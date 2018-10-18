@@ -1,3 +1,7 @@
+import extend from '../publicJS/extend.js'
+import isArray from '../publicJS/isArray.js'
+export {extend, isArray}
+
 export function randomPoints (center, n) {
     const lngX = center[0]
     const latY = center[1]
@@ -15,12 +19,12 @@ export function randomPoints (center, n) {
 }
 
 // 合并对象
-export function extend () {
-    for (var i = 1, len = arguments.length; i < len; i++) {
-        Object.assign(arguments[0], arguments[i])
-    }
-    return arguments[0]
-}
+// export function extend () {
+//     for (var i = 1, len = arguments.length; i < len; i++) {
+//         Object.assign(arguments[0], arguments[i])
+//     }
+//     return arguments[0]
+// }
 
 export function random (min, max, fixed) {
     let number = Math.random() * (max - min) + min

@@ -23,8 +23,7 @@ export default {
               e.editor()
             }
           }
-        ],
-        isEditor: true
+        ]
       }
     }
   },
@@ -41,7 +40,7 @@ export default {
       const object = {}
       this.onclick && (object.onClick = this.onclick)
       this.map && (object.map = this.map)
-      this.features = new gdMap.Markers(Object.assign({}, this.default, this.options || {}, object))
+      this.features = new gdMap.Marker(Object.assign({}, this.default, this.options || {}, object))
       this.features.load(data)
       this.onload && this.onload(this)
     }

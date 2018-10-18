@@ -7,8 +7,8 @@ const infoWindowCustom = function (opt) {
     this.title = opt.title
     this.width = (opt.width ? (opt.width + 'px') : 'auto')
     let btnHtml = ''
-    if (opt.butsModal) {
-        btnHtml = opt.butsModal(opt.buts, this.data)
+    if (opt.butsModel) {
+        btnHtml = opt.butsModel(opt.buts, this.data)
     } else {
         opt.buts.forEach(function (item) {
             btnHtml += '\
@@ -21,9 +21,9 @@ const infoWindowCustom = function (opt) {
         opt.butClick($.trim($(this).text()), _this.data)
     })
     $('body').on('click', '.amap-info-close', function(){
-        infoWindow.close()
+        _this.map.infoWindow.close()
     })
-    this.render = opt.modal || function(data){
+    this.render = opt.model || function(data){
         _this.data = data
         let table = ''
         for (let key in opt.field) {
@@ -36,7 +36,7 @@ const infoWindowCustom = function (opt) {
     }
 }
 infoWindowCustom.prototype.show = function(position, data){
-    infoWindow.open(this.map, position)
+    this.map.infoWindow.open(this.map, position)
     // const content = this.render(data)
     const content = '\
         <div class="my_infoWindow" style="width:'+ this.width +'">\
@@ -55,10 +55,10 @@ infoWindowCustom.prototype.show = function(position, data){
         </div>\
         <div class="my_iw_jt"></div>\
     '
-    infoWindow.setContent(content)
+    this.map.infoWindow.setContent(content)
 }
 infoWindowCustom.prototype.hide = function(){
-    infoWindow.close()
+    this.map.infoWindow.close()
 }
 
 export default infoWindowCustom

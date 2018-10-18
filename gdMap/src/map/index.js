@@ -1,4 +1,4 @@
-import {getMap, setMap, getContextMenu, getInfoWindow, setInfoWindow} from './map.js'
+import {newMap, getMap, setMap, setInfoWindow} from './map.js'
 import { Marker } from './marker.js'
 import { Polyline } from './polyline.js'
 import { Polygon } from './polygon.js'
@@ -12,18 +12,18 @@ import MarkerRunning from './markerRunning.js'
 import Playback from './playback.js'
 import GeoJSON from './geoJSON.js'
 import mouseTool from './mouseTool.js'
+import * as overlay from './overlay-more.js'
 
 const gdMap = {
+    newMap: newMap,
     getMap: getMap,
     setMap: setMap,
-    getContextMenu: getContextMenu,
-    getInfoWindow: getInfoWindow,
     setInfoWindow: setInfoWindow,
     Playback: Playback,
-    Markers: Marker,
-    Polylines: Polyline,
-    Polygons: Polygon,
-    Circles: Circle,
+    Marker: Marker,
+    Polyline: Polyline,
+    Polygon: Polygon,
+    Circle: Circle,
     Rectangle: Rectangle,
     Text: Text,
     OverlayGroup: OverlayGroup,
@@ -31,7 +31,8 @@ const gdMap = {
     InfoWindowCustom: InfoWindowCustom,
     MarkerRunning: MarkerRunning,
     GeoJSON: GeoJSON,
-    mouseTool: mouseTool
+    mouseTool: mouseTool,
+    markerTitleIpt: overlay.markerTitleIpt
 }
 
 window.gdMap = gdMap

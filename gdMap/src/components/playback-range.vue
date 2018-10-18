@@ -3,7 +3,7 @@
     <my-feature :onload="onload" :onstart="onStart" :map="map"></my-feature>
     <input @click="play" class="button" type="button" value="播放">
     <input @click="pause" class="button" type="button" value="暂停">
-    <input type="hidden" class="slider-input" value="">
+    <input type="hidden" :id="idName" class="slider-input" value="">
   </div>
 </template>
 
@@ -14,7 +14,32 @@ export default {
     'my-feature': () => import('./map-feature/playback')
   },
   props: ['map'],
+  data () {
+    return {
+      idName: this.getUuid(8, 16)
+    }
+  },
   methods: {
+    getUuid (len, radix) {
+      let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('')
+      let uuid = []
+      let i
+      radix = radix || chars.length
+      if (len) {
+        for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random() * radix]
+      } else {
+        let r
+        uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-'
+        uuid[14] = '4'
+        for (i = 0; i < 36; i++) {
+          if (!uuid[i]) {
+            r = 0 | Math.random() * 16
+            uuid[i] = chars[(i === 19) ? (r & 0x3) | 0x8 : r]
+          }
+        }
+      }
+      return uuid.join('')
+    },
     onload(e) {
       this.playback = e.feature
       this.len = e.data.length - 1
@@ -22,7 +47,7 @@ export default {
     onStart(opt) {
       console.log('实时速度'+ opt.speed.toFixed(2) +'km/h')
       var n = Math.round(opt.index / this.len * 100) || 0
-      $('.slider-input').jRange('setValue', n.toString());
+      $('#'+ this.idName).jRange('setValue', n.toString());
     },
     play() {
       this.playback.play()
@@ -33,7 +58,7 @@ export default {
   },
   mounted() {
     var _this = this
-    $('.slider-input').jRange({
+    $('#'+ this.idName).jRange({
       from: 0,
       to: 100,
       width: 300,

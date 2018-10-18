@@ -8,11 +8,12 @@
       </ul>
     </el-aside>
     <el-main>
-      <my-map>
+      <router-view></router-view>
+      <!-- <my-map>
         <template slot-scope="{ tomap }">
           <router-view :map="tomap"></router-view>
         </template>
-      </my-map>
+      </my-map> -->
     </el-main>
   </el-container>
 </template>
@@ -20,9 +21,9 @@
 import map from './components/map'
 export default {
   name: 'home',
-  components: {
-    'my-map': map
-  },
+  // components: {
+  //   'my-map': map
+  // },
   data() {
     return {
       docState: null,
@@ -91,7 +92,19 @@ export default {
           src: '/mouseTool'
         }, {
           title: '多种覆盖物',
-          src: '/feature-move'
+          src: '/feature-more'
+        }, {
+          title: '点标记标题编辑',
+          src: '/marker-title-ipt'
+        }, {
+          title: '新增覆盖物',
+          src: '/overlaygroup-add'
+        }, {
+          title: '多地图',
+          src: '/maps'
+        }, {
+          title: 'demo',
+          src: '/demo'
         }
       ]
     }

@@ -13,27 +13,26 @@ const newFeature = function (params = {}) {
 const editor = function (item) {
 	this.map.plugin(["AMap.PolyEditor"],() => {
 		if (this.editorObj === item) return false
-	    this.editorClose()
-	    this.editorFeature = item
-	    this.editorObj = this.add(item.params)
+	    if (!this.notEditorClose) {
+            this.editorClose()
+            this.map.on('rightclick', this.editorClose, this)
+        }
+	    this.editorObj = item
 	    this.editorObj.setDraggable(true)
-	    this.polylineEditor = new AMap.PolyEditor(this.map, this.editorObj)
-	    this.polylineEditor.open()
-	    this.editorFeature.hide()
-	    this.map.on('rightclick', this.editorClose, this)
+	    this.editorFeature = new AMap.PolyEditor(this.map, this.editorObj)
+        item.editorFeature = this.editorFeature
+	    this.editorFeature.open()
 	})
 }
 
 const editorClose = function () {
     if (this.editorObj) {
         const path = this.editorObj.getPath()
-        this.editorFeature.params[this.pathKey] = path.map(position => [position.lng, position.lat])
-        this.editorFeature.show()
-        this.editorFeature.setPath(path)
-        this.polylineEditor.close()
-        this.editorObj.setMap(null)
-        const idx = this.data.indexOf(this.editorObj)
-        this.data.splice(idx, 1)
+        this.editorObj.params[this.pathKey] = path.map(position => [position.lng, position.lat])
+        this.editorFeature.close()
+        this.editorObj.setDraggable(false)
+        this.editorObj.editorFeature = null
+        delete this.editorObj.editorFeature
         this.editorObj = null
         this.map.off('rightclick', this.editorClose, this)
     }

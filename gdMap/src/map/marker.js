@@ -13,23 +13,19 @@ const newFeature = function (params = {}) {
 
 const editor = function (item) {
     if (this.editorObj === item) return false
-    this.editorClose()
-    this.editorFeature = item
-    this.editorObj = this.add(item.params)
+    if (!this.notEditorClose) {
+        this.editorClose()
+        this.map.on('rightclick', this.editorClose, this)
+    }
+    this.editorObj = item
     this.editorObj.setDraggable(true)
-    this.editorFeature.hide()
-    this.map.on('rightclick', this.editorClose, this)
 }
 
 const editorClose = function () {
     if (this.editorObj) {
         const position = this.editorObj.getPosition()
-        this.editorFeature.params[this.positionKey] = [position.lng, position.lat]
-        this.editorFeature.setPosition(position)
-        this.editorFeature.show()
-        this.editorObj.setMap(null)
-        const idx = this.data.indexOf(this.editorObj)
-        this.data.splice(idx, 1)
+        this.editorObj.params[this.positionKey] = [position.lng, position.lat]
+        this.editorObj.setDraggable(false)
         this.editorObj = null
         this.map.off('rightclick', this.editorClose, this)
     }

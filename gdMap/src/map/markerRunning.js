@@ -33,8 +33,8 @@ const render = function () {
             this.devices[i].setPosition(this.devices[i].moveShapes[this.index])
         }
     }
-    if (infoWindow.feature && infoWindow.feature.moveShapes && infoWindow.feature.moveShapes[this.index]) {
-        infoWindow.setPosition(infoWindow.feature.moveShapes[this.index])
+    if (this.map.infoWindow.feature && this.map.infoWindow.feature.moveShapes && this.map.infoWindow.feature.moveShapes[this.index]) {
+        this.map.infoWindow.setPosition(this.map.infoWindow.feature.moveShapes[this.index])
     }
     if (this.trackMarker && this.trackMarker.moveShapes && this.trackMarker.moveShapes[this.index]) {
         this.path[this.path.length - 1] = this.trackMarker.moveShapes[this.index]
@@ -63,10 +63,10 @@ const running = function (data) {
         case 'change':
             let object = this.markers.getById(data[i][this.idKey])
             if (object) {
-                const star = object.getPosition()
+                const start = object.getPosition()
                 object.moveShapes = getMoveShapes(this.speed, {
-                    x: star.lng,
-                    y: star.lat
+                    x: start.lng,
+                    y: start.lat
                 }, {
                     x: data[i][this.endKey][0],
                     y: data[i][this.endKey][1]

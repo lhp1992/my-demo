@@ -36,7 +36,7 @@ export default {
     }
   },
   mounted () {
-    this.map = gdMap.setMap(this.idName, {
+    this.map = gdMap.newMap(this.idName, {
       zoom: 15
     })
   }
