@@ -1,7 +1,7 @@
 {
   "name": "vue-gdmap",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "gdMap",
   "author": "lhp1992 <364674123@qq.com>",
   "private": true,
   "scripts": {

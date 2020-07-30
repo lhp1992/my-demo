@@ -2,7 +2,6 @@ let socket = {}
 let forcedClose = false
 let isOpen = false
 let message = {}
-
 let init = function (wsip, options){
   const self = {}
 

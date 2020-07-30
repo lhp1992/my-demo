@@ -83,5 +83,4 @@
         // console.log(data)
         ws.send(JSON.stringify(data))
 	}
-
 })(jQuery);

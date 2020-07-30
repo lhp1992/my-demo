@@ -1,7 +1,7 @@
 {
   "name": "my-chat",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "chatSocket",
   "author": "lihanpeng",
   "private": true,
   "scripts": {
