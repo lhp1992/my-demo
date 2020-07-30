@@ -1,0 +1,42 @@
+<div id="room-root" class="col-div" style="display: flex;">
+    <!-- content -->
+    <div class="row-div" style="height: 100%; width: 100%; padding: 10px">
+        <!-- 视频网格 -->
+        <div id="video-grid" style="height: 100%; flex: 1;grid-template-rows: repeat(2, 1fr);">
+            <!-- 主视频 -->
+            <img v-if="base64img" :src="base64img">
+            <div id="main-video" :class="'video-box col-div' + (bigVideoId == 'local' ? ' big-video' : '')" style="justify-content: flex-end" @click="setBigVideoId('local')">
+                <!-- 主视频控制按钮 -->
+                <div id="main-video-btns" class="row-div"
+                    style="width: 156px; position: absolute; z-index: 10; justify-content: center; align-self: flex-end">
+                    <img id="video-btn" style="width: 68px; height: 68px" @click="isMuteVideo ? unmuteVideo() : muteVideo()"
+                        :src="'./images/big-camera-'+ (isMuteVideo ? 'off' : 'on') +'.png'" alt="">
+                    <img id="mic-btn" style="width: 68px; height: 68px" @click="isMuteAudio ? unmuteAudio() : muteAudio()"
+                        :src="'./images/big-mic-'+ (isMuteAudio ? 'off' : 'on') +'.png'" alt="">
+                </div>
+                <div style="width: 100%; height: 100%; position: relative; background-color: black; overflow: hidden;">
+                	<video style="width: 100%; height: 100%; position: absolute; object-fit: cover" ref="localVideo" autoplay="autoplay" playsinline="playsinline" v-if="isReadyMedia"></video>
+	                <div v-else id="mask_main" class="mask col-div">
+	                    <!-- “摄像头未开启”遮罩 -->
+	                    <div style="height: 100%; width: 100%; position: absolute; background-color: #D8D8D8"></div>
+	                    <img style="width: 63px; height: 69px; z-index: 10;" src="./images/camera-max.png" alt="">
+	                    <div style="height: 10px"></div>
+	                    <div style="z-index: 10">摄像头未打开</div>
+	                </div>
+                </div>
+            </div>
+            <!-- 小视频 -->
+            <div v-if="peerConnections" v-for="item in peerConnections" :key="item.id" :class="'video-box' + (bigVideoId == item.id ? ' big-video' : '')" style="justify-content: center" @click="setBigVideoId(item.id)">
+            	<div style="width: 100%; height: 100%; position: relative; background-color: black; overflow: hidden;">
+                    <!-- <video :ref="'peerVideo-'+ item.id" style="width: 100%; height: 100%; position: absolute; object-fit: cover" autoplay="autoplay" playsinline="playsinline"></video> -->
+                    <video ref="peerConnections" :id="item.id" style="width: 100%; height: 100%; position: absolute; object-fit: cover" autoplay="autoplay" playsinline="playsinline"></video>
+                </div>
+            </div>
+            <div v-for="item in (4 - (peerConnections ? peerConnections.length : 0))" :key="item.id" class="video-box" style="justify-content: center">
+                <div style="width: 100%; height: 100%; position: relative; background-color: black; overflow: hidden;">
+                    <video style="width: 100%; height: 100%; position: absolute; object-fit: cover"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

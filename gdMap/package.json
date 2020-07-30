@@ -2,7 +2,7 @@
   "name": "vue-gdmap",
   "version": "1.0.0",
   "description": "A Vue.js project",
-  "author": "lhp1992 <lihanpeng1992@sina.com>",
+  "author": "lhp1992 <364674123@qq.com>",
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",

@@ -1,0 +1,96 @@
+<div id="room-root" class="col-div" style="display: flex;">
+    <!-- header -->
+    <div class="row-div card" style="width: 100%; height: 65px; justify-content: space-between">
+        <!-- 腾讯云logo -->
+        <div class="row-div" style="height: 100%; width: 230px; justify-content: center">
+            <div style="width: 86px; height: 23px; font-size: 18px; color: #333333">视频通话</div>
+        </div>
+        <!-- 分享屏幕 退出 按钮 -->
+        <div class="row-div" style="height: 100%; width: auto;">
+            <!-- <img id="screen-btn" style="width: 65px; height: 65px" src="./images/screen-off.png" alt="">
+            <div style="width: 20px"></div> -->
+            <img id="logout-btn" style="width: 65px; height: 65px; cursor: pointer;" src="./images/logout.png" alt="" @click="logout">
+        </div>
+        <!-- 房间号 -->
+        <div id="header-roomId"
+            style="width: 230px; justify-content: flex-end; padding-right: 20px; font-size: 14px; color: #888888">
+            房间号: {{ roomId }}</div>
+    </div>
+    <!-- content -->
+    <div class="row-div" style="height: 100%; width: 100%; padding: 10px">
+        <div class="col-div" style="width: 340px; height: 100%; padding: 10px">
+            <div class="col-div card" style="width: 100%; height: 100%">
+                <!-- 成员列表 -->
+                <div id="member-list" class="col-div" style="width: 100%; justify-content: flex-start; flex: 1">
+                    <!-- member -->
+                    <div id="member-me" style="width: 100%; padding-left: 20px">
+                        <div class="row-div member"
+                            style="width: 100%; height: 50px; justify-content: space-between">
+                            <div class="member-id">{{ userId }}(我)</div>
+                            <div class="row-div" style="width:100px; height: 27px; justify-content: center">
+                                <img class="member-video-btn" style="height: 100%" src="./images/camera-on.png"
+                                    alt="">
+                                <div style="width: 18px"></div>
+                                <img class="member-audio-btn" style="height: 100%" src="./images/mic-on.png"
+                                    alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div v-if="roomList" v-for="item in roomList" :key="item" style="width: 100%; padding-left: 20px; display: flex;">
+                        <div class="row-div member" style="width: 100%; height: 50px; justify-content: space-between">
+                            <div class="member-id">{{ item }}</div>
+                            <div class="row-div" style="width:100px; height: 27px; justify-content: center">
+                                <img class="member-video-btn" style="height: 100%" src="./images/camera-on.png" alt="">
+                                <div style="width: 18px"></div>
+                                <img class="member-audio-btn" style="height: 100%" src="./images/mic-on.png" alt="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 广告 -->
+                <!-- <div class="col-div" style="width: 100%; height: 244px">
+                    <div style="width: 280px; height: 1px; background-color: #f0f0f0"></div>
+                    <div class="row-div" style="width: 100%; height: 186px; justify-content: center">
+                        <img style="height: 150px" src="./images/code.jpg" alt="">
+                        <div style="width: 46px"></div>
+                        <img style="height: 150px" src="./images/shot.png" alt="">
+                    </div>
+                    <div style="width: 290px; font-size: 14px; color: #888888">微信扫一扫打开小程序，点击“视频通话”即可加入通话
+                    </div>
+                </div> -->
+            </div>
+        </div>
+        <!-- 视频网格 -->
+        <div id="video-grid" style="height: 100%; flex: 1">
+            <!-- 主视频 -->
+            <img v-if="base64img" :src="base64img">
+            <div id="main-video" :class="'video-box col-div' + (bigVideoId == 'local' ? ' big-video' : '')" style="justify-content: flex-end" @click="setBigVideoId('local')">
+                <!-- 主视频控制按钮 -->
+                <div id="main-video-btns" class="row-div"
+                    style="width: 156px; position: absolute; z-index: 10; justify-content: center; align-self: flex-end">
+                    <img id="video-btn" style="width: 68px; height: 68px" @click="isMuteVideo ? unmuteVideo() : muteVideo()"
+                        :src="'./images/big-camera-'+ (isMuteVideo ? 'off' : 'on') +'.png'" alt="">
+                    <img id="mic-btn" style="width: 68px; height: 68px" @click="isMuteAudio ? unmuteAudio() : muteAudio()"
+                        :src="'./images/big-mic-'+ (isMuteAudio ? 'off' : 'on') +'.png'" alt="">
+                </div>
+                <div style="width: 100%; height: 100%; position: relative; background-color: black; overflow: hidden;">
+                	<video style="width: 100%; height: 100%; position: absolute; object-fit: cover" ref="localVideo" autoplay="autoplay" playsinline="playsinline" v-if="isReadyMedia"></video>
+	                <div v-else id="mask_main" class="mask col-div">
+	                    <!-- “摄像头未开启”遮罩 -->
+	                    <div style="height: 100%; width: 100%; position: absolute; background-color: #D8D8D8"></div>
+	                    <img style="width: 63px; height: 69px; z-index: 10;" src="./images/camera-max.png" alt="">
+	                    <div style="height: 10px"></div>
+	                    <div style="z-index: 10">摄像头未打开</div>
+	                </div>
+                </div>
+            </div>
+            <!-- 小视频 -->
+            <div v-if="peerConnections" v-for="item in peerConnections" :key="item.id" :class="'video-box' + (bigVideoId == item.id ? ' big-video' : '')" style="justify-content: center" @click="setBigVideoId(item.id)">
+            	<div style="width: 100%; height: 100%; position: relative; background-color: black; overflow: hidden;">
+                    <!-- <video :ref="'peerVideo-'+ item.id" style="width: 100%; height: 100%; position: absolute; object-fit: cover" autoplay="autoplay" playsinline="playsinline"></video> -->
+                    <video ref="peerConnections" :id="item.id" style="width: 100%; height: 100%; position: absolute; object-fit: cover" autoplay="autoplay" playsinline="playsinline"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

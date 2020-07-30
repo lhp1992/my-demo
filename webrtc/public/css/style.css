@@ -1,0 +1,323 @@
+﻿*{
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: PingFangSC-Regular !important;
+}
+html{
+    width: 100%;
+    height: 100%;
+}
+button{
+    margin: 0;
+    color: #fff;
+    background-color: #006EFF
+}
+
+.ant-btn {
+    line-height: 1.499;
+    position: relative;
+    display: inline-block;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    background-image: none;
+    border: 1px solid transparent;
+    -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.015);
+    cursor: pointer;
+    -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    height: 32px;
+    padding: 0 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    color: rgba(0, 0, 0, 0.65);
+    background-color: #fff;
+    border-color: #d9d9d9;
+}
+
+.ant-btn, .ant-btn:active, .ant-btn:focus {
+    outline: 0;
+}
+
+.ant-btn-primary {
+    color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+    -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+}
+
+.ant-btn:hover, .ant-btn:focus {
+    color: #40a9ff;
+    background-color: #fff;
+    border-color: #40a9ff;
+}
+
+.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
+    text-decoration: none;
+    background: #fff;
+}
+
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+    color: #fff;
+    background-color: #40a9ff;
+    border-color: #40a9ff;
+}
+
+.row-div{
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+}
+.col-div{
+    flex-direction: column;
+}
+#root{
+    width: 100%;
+    height: 100%;
+    background-color: rgb(250, 250, 250);
+    position: absolute;
+    display: block;
+}
+#login-root{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#login-card{
+    width: 450px;
+    height: 500px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    background-color: white;
+}
+.login-card{
+    width: 360px;
+    height: 450px;
+    background-color: white;
+    margin: 0 auto;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+.popover{
+    min-width: 300px;
+    max-width: 1000px;
+    border: 0;
+    white-space: nowrap;
+    /* overflow: hidden; */
+}
+.popover-body{
+    flex-direction: column;
+    padding: 0;
+}
+.popover-body>div{
+    width: 100%;
+    height: 35px;
+    justify-content: center;
+    cursor: default;
+}
+.popover-body>div:hover{
+    background-color: #F7F7F7;
+}
+#video-btn,
+#mic-btn {
+    cursor: pointer;
+}
+*{
+    margin: 0;
+    padding: 0;
+}
+html{
+    width: 100%;
+    height: 100%;
+}
+body{
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    font-family: Futura,sans-serif;
+}
+video{
+    background-color: #d8d8d8;
+}
+#room-root{
+    width: 100%;
+    height: 100%;
+    min-width: 1500px;
+    min-height: 700px;
+    display: none;
+    align-items: flex-start;
+    background-color: #f0f0f0
+}
+.member{
+    cursor: default;
+    border-bottom-style: solid;
+    border-width: 1px;
+    border-bottom-color: #f0f0f0;
+}
+#video-grid{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    grid-template-areas: 'm m m a b'
+                         'm m m c d'
+                         'e f g h i';
+}
+.video-box{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    position: relative;
+    display: flex;
+}
+.video-box.big-video{
+    grid-area: 1/1/3/4;
+}
+.mask{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    font-size: 14px;
+    color: #888888;
+    z-index: 9;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+}
+div[id^=player] {
+    background-color: #d8d8d8 !important;
+}
+
+#vue-app{
+    display: block;
+    height: 100%;
+}
+
+.room-box-bg{
+    background-color: #f2f5f6;
+}
+#room-grid{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    overflow-y: auto;
+}
+#room-grid .video-box{
+    width: 20%;
+    height: 240px;
+    display: block;
+}
+.video-room-box{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    background-color: #d8d8d8;
+    overflow: hidden;
+    -webkit-transition: all .1s linear;
+    -o-transition: all linear .1s;
+    -moz-transition: all linear .1s;
+    transition: all .1s linear;
+    cursor: pointer;
+    border-radius: 7px;
+}
+.video-room-box:hover{
+    transform: scale(1.05);
+}
+
+.room-item-content {
+    background-color: #fff;
+    padding: 7px 10px 11px;
+}
+
+.room-item-info {
+    height: 24px;
+}
+
+.room-item-zone {
+    float: right;
+    color: #888;
+    font-size: 12px;
+    line-height: 24px;
+    max-width: 6em;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
+}
+
+.room-item-intro {
+    display: block;
+    padding-right: 5px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 15px;
+    line-height: 24px;
+    color: #333;
+    margin: 0;
+    font-weight: 500;
+}
+
+.room-item-hot {
+    float: right;
+    color: #888;
+    font-size: 12px;
+    line-height: 24px;
+}
+
+.room-item-hotIcon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+}
+
+.room-item-user{
+    display: block;
+    padding-right: 5px;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin: 0;
+    font-weight: 500;
+    color: #888;
+    font-size: 12px;
+    line-height: 24px;
+}
+
+.room-item-userIcon {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 6px;
+}
+
+.room-item-content svg{
+    vertical-align: middle;
+    fill: currentColor;
+    stroke: currentColor;
+    stroke-width: 0;
+    pointer-events: visibleStroke;
+    margin-bottom: 3px;
+}
+
+.room-item-img{
+    height: calc(100% - 66px);
+    background-size: cover;
+    background-position: center;
+}

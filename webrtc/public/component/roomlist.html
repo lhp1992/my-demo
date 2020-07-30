@@ -1,0 +1,41 @@
+<div id="login-root">
+    <!-- 登录卡片 -->
+    <div id="login-card" class="card">
+        <!-- 顶部三个蓝条 -->
+        <div class="row-div" style="width: 100%; height: 10px">
+            <div style="width: 190px; height: 100%; background-color: #006EFF"></div>
+            <div style="width: 160px; height: 100%; background-color: #00A4FF"></div>
+            <div style="width: 100px; height: 100%; background-color: #5AD5E0"></div>
+        </div>
+        <!-- 腾讯云logo -->
+        <div class="row-div" style="width: 100%; height: 100px; justify-content: center">
+            <div style="width: 86px; height: 23px; font-size: 18px; color: #333333">房间列表</div>
+        </div>
+        <!-- 用户名 房间号 登录按钮-->
+        <div class="col-div" style="width: 320px">
+        	<div style="height: 260px;">
+	            <div class="edu-index-class-middle" v-if="courseItems.length > 0">
+					<div class="edu-index-class-list">
+						<ul>
+							<li v-for="(item, index) in courseItems">
+							<span>{{ item.roomName ? item.roomName : item.roomId }}</span>
+							<button class="joinButton" v-on:click="join(item)">加入</button>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="edu-index-class-prompt" v-if="courseItems.length === 0">
+					<p style="text-align: center;">
+						暂时没有直播，请创建课堂
+					</p>
+				</div>
+			</div>
+	        <div style="height: 24px"></div>
+	        <!-- 登录 -->
+	        <button id="login-btn" type="button" class="btn btn-raised btn-info"
+	            style="width: 100%; height: 40px" v-on:click="onCreateButtonClick">创建房间
+	            <div class="ripple-container"></div>
+	        </button>
+        </div>
+    </div>
+</div>
