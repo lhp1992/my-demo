@@ -5,7 +5,6 @@
 > appmaptile，limg，tiles数据请自行爬取。
 
 ## 调用方式 
-http://localhost:8888/maps
 http://localhost:8888/maps?plugin=AMap.Scale,AMap.OverView,AMap.ToolBar
 
 
