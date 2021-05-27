@@ -25,11 +25,14 @@
 │   ├── index.js
 │   └── App.vue
 ├── page // vue页面
+├── api // api接口
+│ └── cache.js // response缓存
 └── public // 全局公用方法
   ├── mock // 项目mock 模拟数据
   ├── units // 公用方法
   ├── mixin // mixin
   ├── ajax.js // 基于axios的二次封装（form-data请求数据）
+  ├── request.js // 基于axios的请求方法
   ├── authority.js // 权限验证
   ├── breadcrumbs.js // 面包屑
   └── state.js // 简单的状态管理（根据情况可使用vuex）

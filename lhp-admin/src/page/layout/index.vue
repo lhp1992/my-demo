@@ -30,6 +30,8 @@ export default {
     breadcrumb() {
       return this.$breadcrumbs[this.$route.name]
     }
+  },
+  created() {
   }
 };
 </script>

@@ -1,4 +1,4 @@
-import Mock from 'mockjs' // 引入mockjs
+import Mock from 'mockjs'
 import config from '@/config'
 
 const { serverApi } = config
@@ -13,13 +13,15 @@ const { serverApi } = config
 
 Mock.mock(serverApi + 'getSignUpData', 'post', {
   'code': 0,
-  'msg': '',
+  'success': true,
+  'message': '',
   'data': [0, 1, 2, 3, 4]
 })
 
 Mock.mock(serverApi + 'getSignUpData2', 'post', {
   'code': 0,
-  'msg': '',
+  'success': true,
+  'message': '',
   'data': [{
   	'a': 1
   }]

@@ -77,7 +77,7 @@ export default {
     router.beforeEach((to, from, next) => {
       if (!localStorage.getItem('userName')) window.location.href = '../login.html'
       if (to.name && !ifPagePermission(to.name)) {
-        next('/unpermission')
+        next('/403')
         return
       }
       next()

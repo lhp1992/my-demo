@@ -15,7 +15,7 @@ let menu = {
     }, {
       title: '403',
       icon: 'el-icon-menu',
-      name: 'UnPermission',
+      name: '403',
     }
   ]
 }

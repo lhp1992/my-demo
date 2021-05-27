@@ -14,9 +14,9 @@ let routes = [
         name: 'Home',
         component: () => import('@/page/home')
       }, {
-        path: '/unpermission',
-        name: 'UnPermission',
-        component: () => import('@/page/unpermission')
+        path: '/403',
+        name: '403',
+        component: () => import('@/page/403')
       }
     ]
   }
@@ -37,8 +37,8 @@ export let asyncRoutes = [
         component: () => import('@/page/login')
       }, {
         path: '*',
-        name: 'Error',
-        component: () => import('@/page/error')
+        name: '404',
+        component: () => import('@/page/404')
       }
     ]
   }

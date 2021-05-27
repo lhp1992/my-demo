@@ -5,17 +5,21 @@ import App from './App'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import { default as router, asyncRoutes } from './router'
-import Authority from '../../public/authority'
-import Breadcrumbs from '../../public/breadcrumbs'
-import Ajax from '../../public/ajax';
+import Authority from '@/public/authority'
+import Breadcrumbs from '@/public/breadcrumbs'
+import Ajax from '@/public/ajax';
+import State from '@/public/state';
 import Plugin from './plugin';
+import Api from '@/api';
 
-// import '../../public/mock';
+import '@/public/mock';
 
 Vue.use(ElementUI)
 Vue.use(Ajax)
+Vue.use(State)
 Vue.use(Plugin)
 Vue.use(Breadcrumbs)
+Vue.use(Api)
 Vue.config.productionTip = false
 
 
