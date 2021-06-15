@@ -1,0 +1,17 @@
+{
+  "Config": "packages/config",
+  "Amap": "packages/map",
+  "Marker": "packages/marker",
+  "Cluster": "packages/cluster",
+  "Layer": "packages/layer",
+  "LayerMass": "packages/layer-mass",
+  "Text": "packages/text",
+  "Polyline": "packages/polyline",
+  "Polygon": "packages/polygon",
+  "Circle": "packages/circle",
+  "Rectangle": "packages/rectangle",
+  "Editor": "packages/editor",
+  "Popover": "packages/popover",
+  "Draw": "packages/draw",
+  "Compute": "packages/compute"
+}
